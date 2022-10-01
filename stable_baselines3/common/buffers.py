@@ -732,7 +732,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         infos: List[Dict[str, Any]],
     ) -> None:  # pytype: disable=signature-mismatch
         # Copy to avoid modification by reference
-        # print(type(infos))
+        print(infos)
         imp_wt = infos[0]['importance_weight']
         for key in self.observations.keys():
             # Reshape needed when using multiple envs with discrete observations
@@ -752,7 +752,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         self.actions[self.pos] = np.array(action).copy()
         self.rewards[self.pos] = np.array(reward).copy()
         self.dones[self.pos] = np.array(done).copy()
-        self.imp_wt[self.pos] = np.array(imp_wt).copy()
+        self.importance_weight[self.pos] = np.array(imp_wt).copy()
 
         if self.handle_timeout_termination:
             self.timeouts[self.pos] = np.array([info.get("TimeLimit.truncated", False) for info in infos])
