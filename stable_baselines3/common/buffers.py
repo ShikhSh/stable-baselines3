@@ -12,6 +12,7 @@ from stable_baselines3.common.type_aliases import (
     DictRolloutBufferSamples,
     ReplayBufferSamples,
     RolloutBufferSamples,
+    ImSampling_DictReplayBufferSamples,
 )
 from stable_baselines3.common.utils import get_device
 from stable_baselines3.common.vec_env import VecNormalize
@@ -786,7 +787,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         observations = {key: self.to_torch(obs) for key, obs in obs_.items()}
         next_observations = {key: self.to_torch(obs) for key, obs in next_obs_.items()}
 
-        return DictReplayBufferSamples(
+        return ImSampling_DictReplayBufferSamples(
             observations=observations,
             actions=self.to_torch(self.actions[batch_inds, env_indices]),
             next_observations=next_observations,

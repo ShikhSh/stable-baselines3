@@ -54,6 +54,13 @@ class DictReplayBufferSamples(ReplayBufferSamples):
     dones: th.Tensor
     rewards: th.Tensor
 
+class ImSampling_DictReplayBufferSamples(ReplayBufferSamples):
+    observations: TensorDict
+    actions: th.Tensor
+    next_observations: TensorDict
+    dones: th.Tensor
+    rewards: th.Tensor
+    importance_weight: th.Tensor 
 
 class RolloutReturn(NamedTuple):
     episode_timesteps: int
