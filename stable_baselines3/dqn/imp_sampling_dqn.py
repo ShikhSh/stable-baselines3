@@ -206,11 +206,11 @@ class Imp_Sampling_DQN(OffPolicyAlgorithm):
                 # 1-step TD target
                 target_q_values = replay_data.rewards + (1 - replay_data.dones) * self.gamma * next_q_values
                 # This final target_q_values need to be multiplied with the imp_weight
-                print("Target_q_val_shape************************************************************")
-                print(target_q_values.shape)
-                print("Imp_wt_shape", replay_data.importance_weight.shape)
+                # print("Target_q_val_shape************************************************************")
+                # print(target_q_values.shape)
+                # print("Imp_wt_shape", replay_data.importance_weight.shape)
                 target_q_values = target_q_values * replay_data.importance_weight
-                print(target_q_values.shape)
+                # print(target_q_values.shape)
 
             # Get current Q-values estimates
             current_q_values = self.q_net(replay_data.observations)
