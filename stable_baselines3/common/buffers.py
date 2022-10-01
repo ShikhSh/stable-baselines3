@@ -734,6 +734,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         # Copy to avoid modification by reference
         print("start************************************************************************************************")
         print(infos)
+        print("Act: ", action)
         imp_wt = infos[0]['importance_weight']
         for key in self.observations.keys():
             # Reshape needed when using multiple envs with discrete observations
