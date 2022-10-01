@@ -797,7 +797,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
             ),
             # this internally calls the normalize reqards function from environment
             rewards=self.to_torch(self._normalize_reward(self.rewards[batch_inds, env_indices].reshape(-1, 1), env)),
-            importance_weight=self.to_torch(self.imp_wt[batch_inds, env_indices].reshape(-1, 1)),
+            importance_weight=self.to_torch(self.importance_weight[batch_inds, env_indices].reshape(-1, 1)),
         )
 
 
