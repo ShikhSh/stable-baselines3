@@ -732,7 +732,8 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         infos: List[Dict[str, Any]],
     ) -> None:  # pytype: disable=signature-mismatch
         # Copy to avoid modification by reference
-        imp_wt = infos['importance_weight']
+        # print(type(infos))
+        imp_wt = infos[0]['importance_weight']
         for key in self.observations.keys():
             # Reshape needed when using multiple envs with discrete observations
             # as numpy cannot broadcast (n_discrete,) to (n_discrete, 1)
@@ -797,7 +798,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
             ),
             # this internally calls the normalize reqards function from environment
             rewards=self.to_torch(self._normalize_reward(self.rewards[batch_inds, env_indices].reshape(-1, 1), env)),
-            importance_weight=self.to_torch(self.rewards[batch_inds, env_indices].reshape(-1, 1)),
+            importance_weight=self.to_torch(self.imp_wt[batch_inds, env_indices].reshape(-1, 1)),
         )
 
 
