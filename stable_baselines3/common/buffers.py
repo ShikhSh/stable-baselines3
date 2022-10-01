@@ -729,10 +729,10 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         action: np.ndarray,
         reward: np.ndarray,
         done: np.ndarray,
-        imp_wt: np.ndarray,
         infos: List[Dict[str, Any]],
     ) -> None:  # pytype: disable=signature-mismatch
         # Copy to avoid modification by reference
+        imp_wt = infos['importance_weight']
         for key in self.observations.keys():
             # Reshape needed when using multiple envs with discrete observations
             # as numpy cannot broadcast (n_discrete,) to (n_discrete, 1)
