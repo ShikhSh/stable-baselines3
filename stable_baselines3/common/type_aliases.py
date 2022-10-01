@@ -54,7 +54,7 @@ class DictReplayBufferSamples(ReplayBufferSamples):
     dones: th.Tensor
     rewards: th.Tensor
 
-class ImSampling_DictReplayBufferSamples(ReplayBufferSamples):
+class ImSampling_DictReplayBufferSamples(NamedTuple):
     observations: TensorDict
     actions: th.Tensor
     next_observations: TensorDict
