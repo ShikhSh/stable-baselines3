@@ -130,7 +130,9 @@ def create_mlp(
         modules.append(nn.Linear(last_layer_dim, output_dim))
     if squash_output:
         modules.append(nn.Tanh())
-    print("PrintingTheNetwork::::::::::::::::::::::::::::::::::::::::")
+    print("INside CreateMLP::::::::::::::::::::::::::::::::::::::::")
+    print(input_dim)
+    print(output_dim)
     print(modules)
     return modules
 
