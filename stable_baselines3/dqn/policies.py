@@ -67,6 +67,9 @@ class QNetwork(BasePolicy):
         :param obs: Observation
         :return: The estimated Q-Value for each action.
         """
+        print("INSIDE FORWARD^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        print(obs)
+        print(self.extract_features(obs))
         return self.q_net(self.extract_features(obs))
 
     def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
@@ -176,9 +179,9 @@ class DQNPolicy(BasePolicy):
         # Make sure we always have separate networks for features extractors etc
         print("Make netw Inside DQN Pol++++++++++++++++++++++++++++")
         print(self.net_args)
-        # net_args = self._update_features_extractor(self.net_args, features_extractor=None)
-        # print(net_args)
-        return QNetwork(**self.net_args).to(self.device)
+        net_args = self._update_features_extractor(self.net_args, features_extractor=None)
+        print(net_args)
+        return QNetwork(**net_args).to(self.device)
 
     def forward(self, obs: th.Tensor, deterministic: bool = True) -> th.Tensor:
         return self._predict(obs, deterministic=deterministic)
