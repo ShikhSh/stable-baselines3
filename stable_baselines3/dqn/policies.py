@@ -67,9 +67,9 @@ class QNetwork(BasePolicy):
         :param obs: Observation
         :return: The estimated Q-Value for each action.
         """
-        print("INSIDE FORWARD^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print(obs)
-        print(self.extract_features(obs))
+        # print("INSIDE FORWARD^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # print(obs)
+        # print(self.extract_features(obs))
         return self.q_net(self.extract_features(obs))
 
     def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
