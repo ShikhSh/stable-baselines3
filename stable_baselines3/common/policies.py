@@ -108,11 +108,16 @@ class BaseModel(nn.Module):
         if features_extractor is None:
             # The features extractor is not shared, create a new one
             features_extractor = self.make_features_extractor()
+        print("Inside UPDATE FEAT Extractor:::::::::")
+        print(features_extractor)
         net_kwargs.update(dict(features_extractor=features_extractor, features_dim=features_extractor.features_dim))
         return net_kwargs
 
     def make_features_extractor(self) -> BaseFeaturesExtractor:
         """Helper method to create a features extractor."""
+        print("Inside MAKE FEAT Extractor:::::::::")
+        print(self.observation_space)
+        print(self.features_extractor_kwargs)
         return self.features_extractor_class(self.observation_space, **self.features_extractor_kwargs)
 
     def extract_features(self, obs: th.Tensor) -> th.Tensor:
