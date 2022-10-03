@@ -125,6 +125,8 @@ class Imp_Sampling_DQN(OffPolicyAlgorithm):
             support_multi_env=True,
         )
 
+        self.loss = th.nn.MSELoss()
+
         self.exploration_initial_eps = exploration_initial_eps
         self.exploration_final_eps = exploration_final_eps
         self.exploration_fraction = exploration_fraction
@@ -207,11 +209,11 @@ class Imp_Sampling_DQN(OffPolicyAlgorithm):
                 # 1-step TD target
                 target_q_values = replay_data.rewards + (1 - replay_data.dones) * self.gamma * next_q_values
                 # This final target_q_values need to be multiplied with the imp_weight
-                # print("Target_q_val_shape************************************************************")
-                # print(target_q_values.shape)
+                print("Target_q_val_shape************************************************************")
+                print(target_q_values.shape)
                 # print("Imp_wt_shape", replay_data.importance_weight.shape)
                 target_q_values = target_q_values * replay_data.importance_weight
-                # print(target_q_values.shape)
+                print(target_q_values.shape)
 
             # Get current Q-values estimates
             current_q_values = self.q_net(replay_data.observations)
@@ -220,9 +222,10 @@ class Imp_Sampling_DQN(OffPolicyAlgorithm):
             current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long())
 
             # Compute Huber loss (less sensitive to outliers)
-            loss = F.smooth_l1_loss(current_q_values, target_q_values)
+            # loss = F.smooth_l1_loss(current_q_values, target_q_values)
+            loss = self.loss(current_q_values, target_q_values)
             losses.append(loss.item())
-
+            print("Losses: ", loss)
             # Optimize the policy
             self.policy.optimizer.zero_grad()
             loss.backward()
