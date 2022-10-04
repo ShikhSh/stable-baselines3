@@ -753,7 +753,7 @@ class ImSampling_DictReplayBuffer(ReplayBuffer):
         self.rewards[self.pos] = np.array(reward).copy()
         self.dones[self.pos] = np.array(done).copy()
         self.importance_weight[self.pos] = np.array(imp_wt).copy()
-        print(str(self.actions[self.pos]), ", ", str(self.rewards[self.pos]), ", ", str(self.importance_weight[self.pos]), ", ", str(self.observations[key][self.pos]), ", ", str(self.next_observations[key][self.pos]))
+        # print(str(self.actions[self.pos]), ", ", str(self.rewards[self.pos]), ", ", str(self.importance_weight[self.pos]), ", ", str(self.observations[key][self.pos]), ", ", str(self.next_observations[key][self.pos]))
         
         if self.handle_timeout_termination:
             self.timeouts[self.pos] = np.array([info.get("TimeLimit.truncated", False) for info in infos])
