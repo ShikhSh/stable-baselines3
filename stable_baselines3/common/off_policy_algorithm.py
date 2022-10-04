@@ -215,7 +215,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
                 optimize_memory_usage=self.optimize_memory_usage,
                 **self.replay_buffer_kwargs,
             )
-        print("inside OFF POLICY++++++++++++++++++++++++++++++++++++++++++++++")
+        # print("inside OFF POLICY++++++++++++++++++++++++++++++++++++++++++++++")
         self.policy = self.policy_class(  # pytype:disable=not-instantiable
             self.observation_space,
             self.action_space,
@@ -223,8 +223,8 @@ class OffPolicyAlgorithm(BaseAlgorithm):
             **self.policy_kwargs,  # pytype:disable=not-instantiable
         )
         self.policy = self.policy.to(self.device)
-        print("inside OFF POLICY++++++++++++++++++++++++++++++++++++++++++++++")
-        print(self.policy)
+        # print("inside OFF POLICY++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(self.policy)
         # Convert train freq parameter to TrainFreq object
         self._convert_train_freq()
 

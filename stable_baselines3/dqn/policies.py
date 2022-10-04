@@ -55,10 +55,10 @@ class QNetwork(BasePolicy):
         action_dim = self.action_space.n  # number of actions
         q_net = create_mlp(self.features_dim, action_dim, self.net_arch, self.activation_fn)
         self.q_net = nn.Sequential(*q_net)
-        print("INSIDE QNetw Pol++++++++++++++++++++++++++++")
-        print(self.features_dim)
-        print(action_dim)
-        print(self.q_net)
+        # print("INSIDE QNetw Pol++++++++++++++++++++++++++++")
+        # print(self.features_dim)
+        # print(action_dim)
+        # print(self.q_net)
 
     def forward(self, obs: th.Tensor) -> th.Tensor:
         """
@@ -169,18 +169,18 @@ class DQNPolicy(BasePolicy):
         self.q_net_target = self.make_q_net()
         self.q_net_target.load_state_dict(self.q_net.state_dict())
         self.q_net_target.set_training_mode(False)
-        print("INSIDE DQN Pol++++++++++++++++++++++++++++")
-        print(self.q_net)
-        print(self.q_net_target)
+        # print("INSIDE DQN Pol++++++++++++++++++++++++++++")
+        # print(self.q_net)
+        # print(self.q_net_target)
         # Setup optimizer with initial learning rate
         self.optimizer = self.optimizer_class(self.parameters(), lr=lr_schedule(1), **self.optimizer_kwargs)
 
     def make_q_net(self) -> QNetwork:
         # Make sure we always have separate networks for features extractors etc
-        print("Make netw Inside DQN Pol++++++++++++++++++++++++++++")
-        print(self.net_args)
+        # print("Make netw Inside DQN Pol++++++++++++++++++++++++++++")
+        # print(self.net_args)
         net_args = self._update_features_extractor(self.net_args, features_extractor=None)
-        print(net_args)
+        # print(net_args)
         return QNetwork(**net_args).to(self.device)
 
     def forward(self, obs: th.Tensor, deterministic: bool = True) -> th.Tensor:
@@ -308,5 +308,5 @@ class MultiInputPolicy(DQNPolicy):
             optimizer_class,
             optimizer_kwargs,
         )
-        print("INSIDE MULTi IP Pol++++++++++++++++++++++++++++")
+        # print("INSIDE MULTi IP Pol++++++++++++++++++++++++++++")
         # print()

@@ -42,7 +42,7 @@ class FlattenExtractor(BaseFeaturesExtractor):
 
     def __init__(self, observation_space: gym.Space):
         super().__init__(observation_space, get_flattened_obs_dim(observation_space))
-        print("inside FlattenExtractor:::::::::::::::::")
+        # print("inside FlattenExtractor:::::::::::::::::")
         self.flatten = nn.Flatten()
 
     def forward(self, observations: th.Tensor) -> th.Tensor:
@@ -131,10 +131,10 @@ def create_mlp(
         modules.append(nn.Linear(last_layer_dim, output_dim))
     if squash_output:
         modules.append(nn.Tanh())
-    print("INside CreateMLP::::::::::::::::::::::::::::::::::::::::")
-    print(input_dim)
-    print(output_dim)
-    print(modules)
+    # print("INside CreateMLP::::::::::::::::::::::::::::::::::::::::")
+    # print(input_dim)
+    # print(output_dim)
+    # print(modules)
     return modules
 
 
