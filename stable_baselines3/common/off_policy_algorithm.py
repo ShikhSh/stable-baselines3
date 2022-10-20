@@ -553,7 +553,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
         """
         # Switch to eval mode (this affects batch norm / dropout)
         self.policy.set_training_mode(False)
-
+        print("IAMINCOLLECTINGROLOUTS")
         num_collected_steps, num_collected_episodes = 0, 0
 
         assert isinstance(env, VecEnv), "You must pass a VecEnv"
@@ -581,6 +581,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
             actions, buffer_actions = self._sample_action(learning_starts, action_noise, env.num_envs)
 
             # Rescale and perform action
+            print("IAMINCOLLECTINGROLOUTS-stepEnv")
             new_obs, rewards, dones, infos = env.step(actions)
             print("InforsIGOT:::::")
             print(infos)
