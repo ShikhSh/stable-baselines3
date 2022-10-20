@@ -74,6 +74,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         device: Union[th.device, str] = "auto",
         _init_setup_model: bool = True,
         supported_action_spaces: Optional[Tuple[gym.spaces.Space, ...]] = None,
+        rollout_buffer_class = None,
     ):
 
         super().__init__(
@@ -98,7 +99,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         self.ent_coef = ent_coef
         self.vf_coef = vf_coef
         self.max_grad_norm = max_grad_norm
-        self.rollout_buffer = None
+        self.rollout_buffer = rollout_buffer_class
 
         if _init_setup_model:
             self._setup_model()
@@ -107,7 +108,9 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         self._setup_lr_schedule()
         self.set_random_seed(self.seed)
 
-        buffer_cls = DictRolloutBuffer if isinstance(self.observation_space, gym.spaces.Dict) else RolloutBuffer
+        buffer_cls = self.rollout_buffer
+        if buffer_cls ==  None:
+            buffer_cls = DictRolloutBuffer if isinstance(self.observation_space, gym.spaces.Dict) else RolloutBuffer
 
         self.rollout_buffer = buffer_cls(
             self.n_steps,
