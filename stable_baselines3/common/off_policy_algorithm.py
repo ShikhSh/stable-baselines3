@@ -582,7 +582,8 @@ class OffPolicyAlgorithm(BaseAlgorithm):
 
             # Rescale and perform action
             new_obs, rewards, dones, infos = env.step(actions)
-
+            print("InforsIGOT:::::")
+            print(infos)
             self.num_timesteps += env.num_envs
             num_collected_steps += 1
 
@@ -594,7 +595,8 @@ class OffPolicyAlgorithm(BaseAlgorithm):
 
             # Retrieve reward and episode length if using Monitor wrapper
             self._update_info_buffer(infos, dones)
-
+            print("InforsIsend:::::")
+            print(infos)
             # Store data in replay buffer (normalized action and unnormalized observation)
             self._store_transition(replay_buffer, buffer_actions, new_obs, rewards, dones, infos)
 
