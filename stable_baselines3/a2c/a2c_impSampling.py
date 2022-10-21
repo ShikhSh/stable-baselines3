@@ -153,7 +153,7 @@ class A2C_ImpSampling(OnPolicyAlgorithm):
             # print("SHAPES:::::::::")
             # print(values.shape)
             # print(rollout_data.importance_weight.shape)
-            values = values*rollout_data.importance_weight
+            values = values*rollout_data.importance_weigth
             # print(values.shape)
 
             # Normalize advantage (not present in the original implementation)
