@@ -28,6 +28,7 @@ class RolloutBufferSamples(NamedTuple):
     old_log_prob: th.Tensor
     advantages: th.Tensor
     returns: th.Tensor
+    importance_weigth: th.Tensor = None
 
 
 class DictRolloutBufferSamples(RolloutBufferSamples):
