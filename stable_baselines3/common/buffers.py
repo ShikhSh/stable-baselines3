@@ -1039,10 +1039,10 @@ class ImpSampling_DictRolloutBuffer(RolloutBuffer):
             if isinstance(self.observation_space.spaces[key], spaces.Discrete):
                 obs_ = obs_.reshape((self.n_envs,) + self.obs_shape[key])
             self.observations[key][self.pos] = obs_
-        print("HERE_ARE_IMP_WTS_i_rec_from_env")
-        print(infos)
+        # print("HERE_ARE_IMP_WTS_i_rec_from_env")
+        # print(infos)
         imp_wts = np.array(infos[0]['importance_weight'])
-        print("HERE_ARE_IMP_WTS_i_rec_from_env")
+        # print("HERE_ARE_IMP_WTS_i_rec_from_env")
         self.actions[self.pos] = np.array(action).copy()
         self.rewards[self.pos] = np.array(reward).copy()
         self.episode_starts[self.pos] = np.array(episode_start).copy()
