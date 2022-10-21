@@ -9,6 +9,7 @@ from gym import spaces
 from stable_baselines3.common.preprocessing import get_action_dim, get_obs_shape
 from stable_baselines3.common.type_aliases import (
     DictReplayBufferSamples,
+    ImpSampling_DictRolloutBufferSamples,
     DictRolloutBufferSamples,
     ReplayBufferSamples,
     RolloutBufferSamples,
@@ -1052,7 +1053,7 @@ class ImpSampling_DictRolloutBuffer(RolloutBuffer):
         if self.pos == self.buffer_size:
             self.full = True
 
-    def get(self, batch_size: Optional[int] = None) -> Generator[DictRolloutBufferSamples, None, None]:
+    def get(self, batch_size: Optional[int] = None) -> Generator[ImpSampling_DictRolloutBufferSamples, None, None]:
         assert self.full, ""
         indices = np.random.permutation(self.buffer_size * self.n_envs)
         # Prepare the data
@@ -1076,13 +1077,14 @@ class ImpSampling_DictRolloutBuffer(RolloutBuffer):
             yield self._get_samples(indices[start_idx : start_idx + batch_size])
             start_idx += batch_size
 
-    def _get_samples(self, batch_inds: np.ndarray, env: Optional[VecNormalize] = None) -> DictRolloutBufferSamples:
+    def _get_samples(self, batch_inds: np.ndarray, env: Optional[VecNormalize] = None) -> ImpSampling_DictRolloutBufferSamples:
 
-        return DictRolloutBufferSamples(
+        return ImpSampling_DictRolloutBufferSamples(
             observations={key: self.to_torch(obs[batch_inds]) for (key, obs) in self.observations.items()},
             actions=self.to_torch(self.actions[batch_inds]),
             old_values=self.to_torch(self.values[batch_inds].flatten()),
             old_log_prob=self.to_torch(self.log_probs[batch_inds].flatten()),
             advantages=self.to_torch(self.advantages[batch_inds].flatten()),
             returns=self.to_torch(self.returns[batch_inds].flatten()),
+            importance_weigth = self,to_torch(self.importance_wts[batch_inds].flatten())
         )
