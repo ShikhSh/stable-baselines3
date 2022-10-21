@@ -1086,5 +1086,5 @@ class ImpSampling_DictRolloutBuffer(RolloutBuffer):
             old_log_prob=self.to_torch(self.log_probs[batch_inds].flatten()),
             advantages=self.to_torch(self.advantages[batch_inds].flatten()),
             returns=self.to_torch(self.returns[batch_inds].flatten()),
-            importance_weigth = self,to_torch(self.importance_wts[batch_inds].flatten())
+            importance_weigth = self.to_torch(self.importance_wts[batch_inds].flatten())
         )
