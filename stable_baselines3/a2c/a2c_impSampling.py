@@ -147,14 +147,14 @@ class A2C_ImpSampling(OnPolicyAlgorithm):
             values, log_prob, entropy = self.policy.evaluate_actions(rollout_data.observations, actions)
             values = values.flatten()
 
-            if rollout_data.importance_weight == None:
+            if rollout_data.importance_weigth == None:
                 print("ERRORRRRRRRRRR::::::: NO Importance Weight")
             
-            print("SHAPES:::::::::")
-            print(values.shape)
-            print(rollout_data.importance_weight.shape)
+            # print("SHAPES:::::::::")
+            # print(values.shape)
+            # print(rollout_data.importance_weight.shape)
             values = values*rollout_data.importance_weight
-            print(values.shape)
+            # print(values.shape)
 
             # Normalize advantage (not present in the original implementation)
             advantages = rollout_data.advantages
